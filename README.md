@@ -85,7 +85,7 @@ application.properties 如下配置：
 
 例如我的Kubernetes 集群为"192.168.2.11",端口为 "6443",则 application.properties 可以如下配置：
 
-**利用 token 连接 Kubernetes**
+- **利用 token 连接 Kubernetes**
 
 ```properties
 #kubernetes
@@ -98,7 +98,7 @@ swagger.discovery.namespace=kube-public
 swagger.discovery.portType=NodePort
 ```
 
-**利用 config 连接kubernetes 集群**
+- **利用 config 连接kubernetes 集群**
 
 ```properties
 #kubernetes
