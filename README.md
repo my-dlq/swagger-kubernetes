@@ -10,7 +10,7 @@ Swagger kubernetes 版本 | Springboot 版本 | 对应 swagger 版本
 
 ## 二、可配置参数
 
-### 1、Swagger 文档全局配置
+### Swagger 文档全局配置
 
 参数名称|默认值|描述
 ---|---|---
@@ -18,14 +18,14 @@ swagger.global.swagger-version | 2.0 | 设置全局文档的标识版本号
 swagger.global.doc-api-path | /v2/api-docs | 设置 Swagger Api 接口路径
 swagger.global.ignore-services| - | 忽略的服务列表，例如：service1,service2,service3,.....
 
-### 2、Zuul 配置
+### Zuul 配置
 
 参数名称|默认值|描述
 ---|---|---
 zuul.routes.<serviceId>.url| - | 静态路由的 url 地址,其中 serviceId 跟 kubernetes service 名对应,值填写为 kubernetes 集群地址，例如：zuul.routes.kubernetesServiceName.url=http：//kubernetesIP:port
 zuul.routes.<serviceId>.path | - | url 的 path,zuul代理到本地的路径,其中 serviceId 跟 kubernetes service 名对应,一般也设置为 kubernetes service 名,例如：/serviceName/**
 
-### 3、Kubernetes 集群连接配置
+### Kubernetes 集群连接配置
 
 - **通过 Token 连接 Kubernetes**
 
@@ -50,7 +50,7 @@ swagger.kubernetes.connect.fromDefault | true | 如果未设置 fromConfigPath �
 ---|---|---
 swagger.kubernetes.connect.fromCluster | true | 如果未配置token与config文件,则会检测程序是否运行在 Kubernetes 集群中，如果是则会利用集群中给Pod分配的服务账户连接 kubernetes。
 
-### 4、Discovery 设置
+### Discovery 设置
 
 - **时间配置**
 
@@ -69,7 +69,7 @@ swagger.discovery.portType | ClusterIP | 服务发现端口类型，可以设置
 
 ## 三、推荐配置
 
-### 1、在 Kubernetes 集群内启动该服务
+### 在 Kubernetes 集群内启动该服务
 
 如果在 kubernetes 集群内启动该服务,则会利用集群中给该服务分配的 ServiceAccount 连接 Kubernetes 集群,并利用该 ServiceAccount 所拥有的权限发现当前所在的 Namespace 下的所有服务,默认使用 ClusterIP 方式的 Port 获取各个服务的 Swagger API 信息。
 
@@ -79,7 +79,7 @@ application.properties 如下配置：
 ... 默认配置即可~
 ```
 
-### 2、在 kubernets 集群外启动该服务
+### 在 kubernets 集群外启动该服务
 
 如果在 kubernetes 集群外启动该服务,则可以利用 Token 或者集群 Config 文件来连接 Kubernetes 集群,利用 Token 绑定的 ServiceAccount 的权限服务发现指定 Namespace 下的所有服务,利用 NodePort 方式访问服务的 Swagger API 信息。
 
