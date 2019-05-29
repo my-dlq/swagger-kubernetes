@@ -188,7 +188,6 @@
         </plugins>
     </build>
 
-    <!-- 这里引入 Settings.xml 中设置的用户名、密码 -->
     <distributionManagement>
         <!-- include settings.xml server setting -->
         <snapshotRepository>
