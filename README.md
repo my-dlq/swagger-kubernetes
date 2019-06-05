@@ -8,18 +8,15 @@ Swagger kubernetes 版本 | Springboot 版本 | 对应 swagger 版本
 ---|---|---
 2.1.0 | 2.1.x | 2.0
 
+
 ## SpringBoot使用示例
 
-**SpringBoot 项目使用 Swagger 示例**
+[SpringBoot 项目使用 Swagger 示例](https://github.com/my-dlq/swagger-kubernetes/tree/master/example/swagger-example-service)
 
-https://github.com/my-dlq/swagger-kubernetes/example/swagger-example-service
+[Swagger Kubernetes 源码地址](https://github.com/my-dlq/swagger-kubernetes/tree/master/swagger-kubernentes-core)
 
-**SpringBoot 项目使用 Swagger Kubernetes 示例**
-
-https://github.com/my-dlq/swagger-kubernetes/example/swagger-kubernetes-example-service
+[SpringBoot 项目使用 Swagger Kubernetes 示例](https://github.com/my-dlq/swagger-kubernetes/tree/master/example/swagger-kubernetes-example-service)
 
 ## Swagger Kubernetes Docker 项目
 
-**Kubernetes 中创建 Swagger Kubernetes Docker 服务，以及对于项目可以看：**
-
-https://github.com/my-dlq/swagger-kubernetes/swagger-kubernetes-docker/swagger-kubernetes-docker
+[Kubernetes 中创建 Swagger Kubernetes Docker 服务](https://github.com/my-dlq/swagger-kubernetes/swagger-kubernetes-docker/swagger-kubernetes-docker)
