@@ -19,4 +19,4 @@ Swagger kubernetes 版本 | Springboot 版本 | 对应 swagger 版本
 
 ## Swagger Kubernetes Docker 项目
 
-[Kubernetes 中创建 Swagger Kubernetes Docker 服务](https://github.com/my-dlq/swagger-kubernetes/swagger-kubernetes-docker/swagger-kubernetes-docker)
+[Kubernetes 中创建 Swagger Kubernetes Docker 服务](https://github.com/my-dlq/swagger-kubernetes/tree/master/swagger-kubernetes-docker)
