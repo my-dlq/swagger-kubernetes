@@ -89,11 +89,10 @@ spec:
       labels:
         app: swagger-kubernetes
     spec:
-      serviceAccount: swagger-kubernetes    #这里引用创建的服务账户，否则可能没有读取服务所在 Namespace 的权限
-      imagePullPolicy: Always
+      serviceAccountName: swagger-kubernetes    #这里引用创建的服务账户，否则可能没有读取服务所在 Namespace 的权限
       containers:
       - name: swagger-kubernetes
-        image: registry.cn-beijing.aliyuncs.com/mydlq/swagger-kubernetes:2.1.1
+        image: mydlqclub/swagger-kubernetes:1.0.0
         ports:
         - containerPort: 8080
 ```
@@ -119,8 +118,18 @@ service/swagger-kubernetes        NodePort   10.10.204.142   <none>        8080:
 
 输入地址： http://Kuberntes集群地址:32255 访问 Swagger Kubernetes
 
-![](http://ww1.sinaimg.cn/large/007vhU0ely1g3qedbv6iqj30qe0pdgml.jpg)
+![](http://ww1.sinaimg.cn/large/007vhU0ely1g47ly6vu4uj30v60clgm4.jpg)
 
-![](http://ww1.sinaimg.cn/large/007vhU0ely1g3qedfyu3aj30qe0ss74x.jpg)
+## 三、可配置环境变量参数
 
-![](http://ww1.sinaimg.cn/large/007vhU0ely1g3qedly9agj30qe0cg0su.jpg)
+变量名 | 默认值 |描述
+---|----|---
+KUBERNETES_CONNECT_URL | https://kubernetes.default.svc.cluster.local |Kubernetes API 地址
+KUBERNETES_CONNECT_TOKEN | Service Pod ServiceAccount 所拥有的权限 | KUBERNETES_CONNECT_TOKEN
+DISCOVERY_NAMESPACE | Service 所在的 Namespace | Swagger 聚合文档的 Kubernetes Namespace
+DISCOVERY_INITIAL_INTERVAL | 60 | 服务发现的更新间隔，推荐60秒
+SWGGER_API_PATH | /v2/api-docs | 应用 Swagger API 地址
+IGNORE_SERVICES | - | 默认的忽略列表，例如设置为"service1,service2,......"
+ACTUATOR_PORT | 8080 | SpringBoot management 端口设置 
+ACTUATOR_TYPE | * | SpringBoot Actuator 暴露的参数，可以设置为 health,info,env,metrics,prometheus....
+

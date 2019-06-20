@@ -14,7 +14,7 @@ public class SwaggerUIMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/webjars/bycdao-ui/cdao/**").addResourceLocations("classpath:/css/");
+        registry.addResourceHandler("/webjars/bycdao-ui/cdao/**").addResourceLocations("classpath:/ui/");
     }
 
 }

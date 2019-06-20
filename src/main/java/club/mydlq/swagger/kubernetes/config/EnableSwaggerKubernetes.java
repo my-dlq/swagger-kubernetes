@@ -1,6 +1,5 @@
 package club.mydlq.swagger.kubernetes.config;
 
-import club.mydlq.swagger.kubernetes.config.*;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;

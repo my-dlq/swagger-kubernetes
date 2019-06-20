@@ -1,12 +1,6 @@
-FROM maven:3.6.1-jdk-8-slim as builder
-WORKDIR /
-COPY src .
-COPY pom.xml .
-RUN mvn package -Dmaven.test.skip=true
-
 FROM openjdk:8u212-b04-jre-slim
 VOLUME /tmp
-COPY --from=builder /target/*.jar swagger-kubernetes.jar
+ADD target/*.jar swagger-kubernetes.jar
 RUN sh -c 'touch /swagger-kubernetes.jar'
 ENV JAVA_OPTS="-Duser.timezone=Asia/Shanghai"
 ENV APP_OPTS=""

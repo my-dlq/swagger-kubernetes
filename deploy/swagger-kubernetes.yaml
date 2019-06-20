@@ -29,8 +29,7 @@ spec:
       labels:
         app: swagger-kubernetes
     spec:
-      serviceAccount: default
-      imagePullPolicy: Always
+      serviceAccountName: default
       containers:
       - name: swagger-kubernetes
         image: registry.cn-beijing.aliyuncs.com/mydlq/swagger-kubernetes:2.1.1

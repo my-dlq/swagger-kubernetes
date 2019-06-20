@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class SwaggerAutoConfig {
 
     // Global swagger docs api path
-    private String docApiPath = "/v2/api-docs";
+    private String docApiPath;
     // Global Swagger docs version
     private String swaggerVersion = "2.0";
 

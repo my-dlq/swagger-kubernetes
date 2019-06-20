@@ -1,20 +1,3 @@
-/***
- * swagger-bootstrap-ui v1.9.3 / 2019-4-17 19:50:25
- *
- * https://gitee.com/xiaoym/swagger-bootstrap-ui
- *
- * Swagger enhanced UI component package
- *
- * Author: xiaoyumin
- * email:xiaoymin@foxmail.com
- * Copyright: 2017 - 2019, xiaoyumin, http://www.xiaominfo.com/
- *
- * Licensed under Apache License 2.0
- * https://github.com/xiaoymin/Swagger-Bootstrap-UI/blob/master/LICENSE
- *
- * create by xiaoymin on 2018-7-4 15:32:07
- * 重构swagger-bootstrap-ui组件,为以后动态扩展更高效,扩展接口打下基础
- */
 (function ($) {
 
     var SwaggerBootstrapUi=function (options) {
