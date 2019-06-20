@@ -4,11 +4,20 @@
 
 Swagger Kubernetes 是能够将 Kubernetes 环境下 Spring 项目的 Swagger 文档聚合，只要 Spring 项目中引用了 Swagger 工具暴露 Swagger API，就可以将其所有的这类项目 Swagger 接口聚合到 Swagger Kubernetes 项目当中。
 
-Swagger Kubernetes 是拥有在 Kubernetes 环境中服务发现功能，能够自动服务发现那些暴露 Swagger API 的服务，然后生成 Markdown 格式的文档展示在页面上，还是通过反向代理可以直接调用对应服务接口进行调试工作。
+Swagger Kubernetes 是拥有在 Kubernetes 环境中服务发现功能，能够自动服务发现那些暴露 Swagger API 的服务，然后生成 Markdown 格式的文档展示在页面上，通过反向代理可以直接调用对应服务接口进行调试工作。
+
+由于方便，已经将该项目以 Docker 镜像的方式存放到 Docker Hub 仓库。
+
+hub地址：https://hub.docker.com/r/mydlqclub/swagger-kubernetes
+Docker镜像： mydlqclub/swagger-kubernetes
 
 ![](http://ww1.sinaimg.cn/large/007vhU0ely1g3qeczucrij30qe0k174p.jpg)
 
-## 二、如何将 Swagger Kubernetes 部署到 Kubernetes
+## 二、如何使用
+
+Swagger Kubernetes 是应用在 Kubernetes 环境下，监控服务所在 Namespace 的各个 Spring 应用 Swagger API 接口，所以需要将此应用部署到 Kubernetes 环境下。
+
+下面将演示如何在 Kubernetes 集群部署 Swagger Kubernetes。
 
 ### 1、创建 ServiceAccount
 
