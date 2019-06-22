@@ -10,8 +10,8 @@ Swagger Kubernetes 是拥有在 Kubernetes 环境中服务发现功能，能够�
 
 由于方便，已经将该项目以 Docker 镜像的方式存放到 Docker Hub 仓库。
 
-hub地址：https://hub.docker.com/r/mydlqclub/swagger-kubernetes
-Docker镜像： mydlqclub/swagger-kubernetes
+- hub地址：https://hub.docker.com/r/mydlqclub/swagger-kubernetes
+- Docker镜像： mydlqclub/swagger-kubernetes
 
 ![](http://ww1.sinaimg.cn/large/007vhU0ely1g3qeczucrij30qe0k174p.jpg)
 
