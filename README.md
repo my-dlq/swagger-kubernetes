@@ -137,6 +137,8 @@ service/swagger-kubernetes        NodePort   10.10.204.142   <none>        8080:
 
 ## 四、可配置环境变量参数
 
+一般情况用默认配置即可，有些特殊情况需要自定义设置，可以做如下配置：
+
 变量名 | 默认值 |描述
 ---|----|---
 KUBERNETES_CONNECT_URL | https://kubernetes.default.svc.cluster.local |Kubernetes API 地址
