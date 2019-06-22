@@ -1,3 +1,5 @@
+![](http://ww1.sinaimg.cn/large/007vhU0ely1g47xglqna6j30qy09rtb5.jpg)
+
 # Swagger Kubernetes
 
 ## 一、简介
@@ -13,7 +15,11 @@ Docker镜像： mydlqclub/swagger-kubernetes
 
 ![](http://ww1.sinaimg.cn/large/007vhU0ely1g3qeczucrij30qe0k174p.jpg)
 
-## 二、如何使用
+## 二、架构图
+
+![](http://ww1.sinaimg.cn/large/007vhU0ely1g49t2mpc6tj30rs0bugmi.jpg)
+
+## 三、如何使用
 
 Swagger Kubernetes 是应用在 Kubernetes 环境下，监控服务所在 Namespace 的各个 Spring 应用 Swagger API 接口，所以需要将此应用部署到 Kubernetes 环境下。
 
@@ -129,7 +135,7 @@ service/swagger-kubernetes        NodePort   10.10.204.142   <none>        8080:
 
 ![](http://ww1.sinaimg.cn/large/007vhU0ely1g47ly6vu4uj30v60clgm4.jpg)
 
-## 三、可配置环境变量参数
+## 四、可配置环境变量参数
 
 变量名 | 默认值 |描述
 ---|----|---
