@@ -1,4 +1,5 @@
-![](http://ww1.sinaimg.cn/large/007vhU0ely1g47xglqna6j30qy09rtb5.jpg)
+<!-- ![](http://ww1.sinaimg.cn/large/007vhU0ely1g47xglqna6j30qy09rtb5.jpg) -->
+![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1001.jpg)
 
 # Swagger Kubernetes
 
@@ -13,11 +14,13 @@ Swagger Kubernetes 是拥有在 Kubernetes 环境中服务发现功能，能够�
 - hub地址：https://hub.docker.com/r/mydlqclub/swagger-kubernetes
 - Docker镜像： mydlqclub/swagger-kubernetes
 
-![](http://ww1.sinaimg.cn/large/007vhU0ely1g3qeczucrij30qe0k174p.jpg)
+<!-- ![](http://ww1.sinaimg.cn/large/007vhU0ely1g3qeczucrij30qe0k174p.jpg) -->
+![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1002.jpg)
 
 ## 二、架构图
 
-![](http://ww1.sinaimg.cn/large/007vhU0ely1g49t2mpc6tj30rs0bugmi.jpg)
+<!-- ![](http://ww1.sinaimg.cn/large/007vhU0ely1g49t2mpc6tj30rs0bugmi.jpg) -->
+![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1003.jpg)
 
 ## 三、如何使用
 
@@ -133,7 +136,8 @@ service/swagger-kubernetes        NodePort   10.10.204.142   <none>        8080:
 
 输入地址： http://Kuberntes集群地址:32255 访问 Swagger Kubernetes
 
-![](http://ww1.sinaimg.cn/large/007vhU0ely1g47ly6vu4uj30v60clgm4.jpg)
+<!-- ![](http://ww1.sinaimg.cn/large/007vhU0ely1g47ly6vu4uj30v60clgm4.jpg) -->
+![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1004.jpg)
 
 ## 四、可配置环境变量参数
 
