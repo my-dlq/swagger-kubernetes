@@ -26,6 +26,8 @@ Swagger Kubernetes 是拥有在 Kubernetes 环境中服务发现功能，能够�
 
 Swagger Kubernetes 是应用在 Kubernetes 环境下，监控服务所在 Namespace 的各个 Spring 应用 Swagger API 接口，所以需要将此应用部署到 Kubernetes 环境下。
 
+<p style="color: red;font-weight: bold;">注意：在swagger2配置文件中，请不要配置归属组名“groupName”参数，否则将无法将其加入聚合列表</p>
+
 下面将演示如何在 Kubernetes 集群部署 Swagger Kubernetes。
 
 ### 1、创建 ServiceAccount
