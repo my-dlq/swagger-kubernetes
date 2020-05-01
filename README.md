@@ -43,30 +43,21 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: swagger-kubernetes
-  namespace: mydlqcloud
+  namespace: cloud-native
 ---
-kind: ClusterRole
+kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: swagger-kubernetes
-rules:
-- apiGroups: [""]
-  resources: ["services","endpoints"]
-  verbs: ["get", "watch", "list"]
----
-kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: swagger-kubernetes
-  namespace: mydlqcloud
+  name: rbac-role-binding
+  namespace: cloud-native
 subjects:
-- kind: ServiceAccount
-  name: swagger-kubernetes
-  namespace: mydlqcloud
+  - kind: ServiceAccount
+    name: swagger-kubernetes
+    namespace: cloud-native
 roleRef:
-  kind: ClusterRole
-  name: swagger-kubernetes
   apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
 ```
 
 **创建 ServiceAccount**
