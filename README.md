@@ -43,7 +43,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: swagger-kubernetes
-  namespace: cloud-native
+  namespace: mydlqcloud
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -53,7 +53,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: swagger-kubernetes
-    namespace: cloud-native
+    namespace: mydlqcloud
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
