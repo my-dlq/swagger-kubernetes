@@ -12,7 +12,7 @@
 
     <groupId>club.mydlq</groupId>
     <artifactId>swagger-kubernetes</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>swagger-kubernetes</name>
