@@ -20,7 +20,7 @@ swagger:
     interval: ${DISCOVERY_INITIAL_INTERVAL:60}
   global:
     docApiPath: ${SWGGER_API_PATH:/v2/api-docs}
-    ignoreServices: ${IGNORE_SERVICES:}
+    ignoreServices: swagger-kubernetes,${IGNORE_SERVICES:}
 
 #manager
 management:
