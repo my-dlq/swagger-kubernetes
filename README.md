@@ -36,7 +36,7 @@ Swagger Kubernetes 是应用在 Kubernetes 环境下，监控服务所在 Namesp
 
 **swagger-kubernetes-ac.yaml**
 
-> 请提前修改里面的 Namespace
+> 请提前修改里面的全部 Namespace 的值为你自己的 Namespace 名称
 
 ```yaml
 apiVersion: v1
@@ -49,7 +49,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rbac-role-binding
-  namespace: cloud-native
+  namespace: mydlqcloud
 subjects:
   - kind: ServiceAccount
     name: swagger-kubernetes
