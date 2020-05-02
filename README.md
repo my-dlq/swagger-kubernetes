@@ -15,12 +15,12 @@ Swagger Kubernetes 是拥有在 Kubernetes 环境中服务发现功能，能够�
 - Docker镜像： mydlqclub/swagger-kubernetes
 
 <!-- ![](http://ww1.sinaimg.cn/large/007vhU0ely1g3qeczucrij30qe0k174p.jpg) -->
-![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1002.jpg)
+![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1002.jpg?x-oss-process=style/shuiyin)
 
 ## 二、架构图
 
 <!-- ![](http://ww1.sinaimg.cn/large/007vhU0ely1g49t2mpc6tj30rs0bugmi.jpg) -->
-![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1003.jpg)
+![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1003.jpg?x-oss-process=style/shuiyin)
 
 ## 三、注意事项
 
@@ -36,7 +36,7 @@ Swagger Kubernetes 是应用在 Kubernetes 环境下，监控服务所在 Namesp
 
 **swagger-kubernetes-ac.yaml**
 
-> 请提前修改里面的 Namespace
+> 请提前修改里面的全部 Namespace 的值为你自己的 Namespace 名称
 
 ```yaml
 apiVersion: v1
@@ -45,28 +45,19 @@ metadata:
   name: swagger-kubernetes
   namespace: mydlqcloud
 ---
-kind: ClusterRole
+kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: swagger-kubernetes
-rules:
-- apiGroups: [""]
-  resources: ["services","endpoints"]
-  verbs: ["get", "watch", "list"]
----
-kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: swagger-kubernetes
+  name: rbac-role-binding
   namespace: mydlqcloud
 subjects:
-- kind: ServiceAccount
-  name: swagger-kubernetes
-  namespace: mydlqcloud
+  - kind: ServiceAccount
+    name: swagger-kubernetes
+    namespace: mydlqcloud
 roleRef:
-  kind: ClusterRole
-  name: swagger-kubernetes
   apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
 ```
 
 **创建 ServiceAccount**
@@ -114,7 +105,7 @@ spec:
       serviceAccountName: swagger-kubernetes    #这里引用创建的服务账户，否则可能没有读取服务所在 Namespace 的权限
       containers:
       - name: swagger-kubernetes
-        image: mydlqclub/swagger-kubernetes
+        image: mydlqclub/swagger-kubernetes:v1.0.1
         ports:
         - containerPort: 8080
 ```
@@ -141,7 +132,7 @@ service/swagger-kubernetes        NodePort   10.10.204.142   <none>        8080:
 输入地址： http://Kuberntes集群地址:32255 访问 Swagger Kubernetes
 
 <!-- ![](http://ww1.sinaimg.cn/large/007vhU0ely1g47ly6vu4uj30v60clgm4.jpg) -->
-![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1004.jpg)
+![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1004.jpg?x-oss-process=style/shuiyin)
 
 ## 五、可配置环境变量参数
 
