@@ -105,7 +105,7 @@ spec:
       serviceAccountName: swagger-kubernetes    #这里引用创建的服务账户，否则可能没有读取服务所在 Namespace 的权限
       containers:
       - name: swagger-kubernetes
-        image: mydlqclub/swagger-kubernetes:1.0.1
+        image: mydlqclub/swagger-kubernetes:v1.0.1
         ports:
         - containerPort: 8080
 ```
