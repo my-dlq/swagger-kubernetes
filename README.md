@@ -141,8 +141,9 @@ service/swagger-kubernetes        NodePort   10.10.204.142   <none>        8080:
 变量名 | 默认值 |描述
 ---|----|---
 KUBERNETES_CONNECT_URL | https://kubernetes.default.svc.cluster.local |Kubernetes API 地址
-KUBERNETES_CONNECT_TOKEN | Service Pod ServiceAccount 所拥有的权限 | KUBERNETES_CONNECT_TOKEN
+KUBERNETES_CONNECT_TOKEN | 应用 Pod 中设置的 ServiceAccount 关联的 Token| 连接 Kubernetes API-Server 的 Token，应用会根据此 Token 而拥有不同的权限
 DISCOVERY_NAMESPACE | Service 所在的 Namespace | Swagger 聚合文档的 Kubernetes Namespace
+DISCOVERY_PORT_TYPE | ClusterIP | Swagger-kubernetes 监控应用 Service 端口类型，支持 ClusterIP 和 NodePort
 DISCOVERY_INITIAL_INTERVAL | 60 | 服务发现的更新间隔，推荐60秒
 SWGGER_API_PATH | /v2/api-docs | 应用 Swagger API 地址
 IGNORE_SERVICES | - | 默认的忽略列表，例如设置为"service1,service2,......"
