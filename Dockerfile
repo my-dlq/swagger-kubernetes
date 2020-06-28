@@ -1,7 +1,9 @@
-FROM openjdk:8u212-b04-jre-slim
+FROM openjdk:11.0-jre-slim
 VOLUME /tmp
-ADD target/*.jar swagger-kubernetes.jar
-RUN sh -c 'touch /swagger-kubernetes.jar'
-ENV JAVA_OPTS="-Duser.timezone=Asia/Shanghai"
+COPY target/lib/ ./lib/
+ADD target/*.jar app.jar
+RUN sh -c 'touch app.jar'
+ENV JVM_OPTS="-Xss256k -Duser.timezone=Asia/Shanghai -Djava.security.egd=file:/dev/./urandom"
+ENV JAVA_OPTS=""
 ENV APP_OPTS=""
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /swagger-kubernetes.jar $APP_OPTS" ]
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS  $JVM_OPTS  -jar app.jar $APP_OPTS" ]
