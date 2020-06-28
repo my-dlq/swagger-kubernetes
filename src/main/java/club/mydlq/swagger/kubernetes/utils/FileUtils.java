@@ -19,7 +19,7 @@ public class FileUtils {
      * 读取文件
      * read file
      *
-     * @return
+     * @return 读取的文本内容
      */
     public static String readFile(String fileName) {
         Path path = Paths.get(fileName);

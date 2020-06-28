@@ -2,8 +2,8 @@ package club.mydlq.swagger.kubernetes.discovery;
 
 import club.mydlq.swagger.kubernetes.param.KubernetesAutoConfig;
 import club.mydlq.swagger.kubernetes.utils.FileUtils;
-import io.kubernetes.client.ApiClient;
-import io.kubernetes.client.Configuration;
+import io.kubernetes.client.openapi.ApiClient;
+import io.kubernetes.client.openapi.Configuration;
 import io.kubernetes.client.util.Config;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

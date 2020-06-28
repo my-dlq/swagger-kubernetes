@@ -9,11 +9,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("swagger.global")
 public class SwaggerAutoConfig {
 
-    // Global swagger docs api path
+    /**
+     * Global swagger docs api path
+     */
     private String docApiPath;
-    // Global Swagger docs version
+    /**
+     * Global Swagger docs version
+     */
     private String swaggerVersion = "2.0";
 
-    // Ignore service list
+    /**
+     * Ignore service list
+     */
     private Set<String> ignoreServices = new HashSet<>();
 }

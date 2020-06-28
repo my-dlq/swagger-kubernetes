@@ -8,6 +8,7 @@ public class MvcController {
 
     @GetMapping("/")
     public String root(){
-        return "redirect:doc.html";
+        return "/doc.html";
     }
+
 }

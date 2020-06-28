@@ -15,6 +15,9 @@ import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+/**
+ * @author mydlq
+ */
 @Slf4j
 @EnableScheduling
 @EnableConfigurationProperties({KubernetesAutoConfig.class, DiscoveryAutoConfig.class})

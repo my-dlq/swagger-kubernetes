@@ -7,6 +7,9 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author mydlq
+ */
 public class SwaggerResources implements SwaggerResourcesProvider {
 
     // serviceInfo list
@@ -29,7 +32,6 @@ public class SwaggerResources implements SwaggerResourcesProvider {
 
     /**
      * 增加 SwaggerResource 对象到 swagger 列表
-     * add SwaggerResource to swagger list
      *
      * @return
      */
@@ -37,9 +39,9 @@ public class SwaggerResources implements SwaggerResourcesProvider {
     public List<SwaggerResource> get() {
         List<SwaggerResource> resources = new ArrayList<>();
         for (ServiceInfo serviceInfo : serviceInfos) {
-            resources.add(swaggerResource(serviceInfo.getName(), "/"
-                    + serviceInfo.getName()
-                    + swaggerAutoConfig.getDocApiPath(), swaggerAutoConfig.getSwaggerVersion()));
+            resources.add(swaggerResource(serviceInfo.getName(),
+                    "/" + serviceInfo.getName() + swaggerAutoConfig.getDocApiPath(),
+                    swaggerAutoConfig.getSwaggerVersion()));
         }
         return resources;
     }
@@ -47,7 +49,6 @@ public class SwaggerResources implements SwaggerResourcesProvider {
 
     /**
      * 创建 SwaggerResource 对象
-     * crate SwaggerResource Object
      *
      * @param name
      * @param location

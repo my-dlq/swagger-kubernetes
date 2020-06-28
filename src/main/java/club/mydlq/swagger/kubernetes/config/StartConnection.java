@@ -8,13 +8,10 @@ import org.springframework.core.annotation.Order;
 
 /**
  * SpringBoot 应用启动成功后首先要执行的任务
- */
-/**
- * Author: mydlq / 小豆丁
+ *
+ * @author mydlq / 小豆丁
  * Blog:   http://www.mydlq.club
  * Github: https://github.com/my-dlq/
- *
- * Describe: The first task to execute when SpringBoot boots
  */
 @Order(value = 0)
 public class StartConnection implements CommandLineRunner {

@@ -9,9 +9,9 @@ import club.mydlq.swagger.kubernetes.utils.HttpUtils;
 import club.mydlq.swagger.kubernetes.utils.ValidationUtils;
 import club.mydlq.swagger.kubernetes.zuul.RefreshRoute;
 import club.mydlq.swagger.kubernetes.zuul.ZuulRouteLocator;
-import io.kubernetes.client.ApiException;
-import io.kubernetes.client.apis.CoreV1Api;
-import io.kubernetes.client.models.*;
+import io.kubernetes.client.openapi.ApiException;
+import io.kubernetes.client.openapi.apis.CoreV1Api;
+import io.kubernetes.client.openapi.models.*;
 import io.kubernetes.client.util.Config;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -105,7 +105,6 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
 
     /**
      * 获取静态服务列表
-     * get static service list from zuul properties
      */
     private List<ServiceInfo> getStaticServiceList() {
         List<ServiceInfo> serviceInfoList = new ArrayList<>();
@@ -120,8 +119,9 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
 
     /**
      * 分析静态服务
-     * @param route
-     * @return
+     *
+     * @param route 路由对象
+     * @return 服务信息
      */
     private ServiceInfo analysisStaticService(ZuulRoute route) {
         boolean isVerify = true;
@@ -131,7 +131,7 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
             isVerify = false;
         }
         // 如果不是以 http 或者 https 开始,则默认加上 "http://"
-        if (!(route.getUrl().startsWith("http") || route.getUrl().startsWith("https"))) {
+        if (isVerify && (!(route.getUrl().startsWith("http") || route.getUrl().startsWith("https")))) {
             route.setUrl("http://" + route.getUrl());
         }
         // 如果为域名,则默认加上 "80" 端口
@@ -168,7 +168,8 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
 
     /**
      * 排除设置的不需要发现的服务
-     * exclude specified services
+     * @param serviceInfoList    服务信息列表
+     * @param excludeServiceList 排除的服务名称列表
      */
     private void excludeService(List<ServiceInfo> serviceInfoList, Set<String> excludeServiceList) {
         if (excludeServiceList == null) {
@@ -188,11 +189,11 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
     /**
      * 获取 ServiceInfo 列表
      *
-     * @param namespace
-     * @param host
-     * @param portType   ClusterIP Or NodePort
-     * @param swaggerUrl
-     * @return
+     * @param namespace    命名空间
+     * @param host         主机地址
+     * @param portType     端口类型，支持ClusterIP Or NodePort
+     * @param swaggerUrl   swagger url 地址
+     * @return ServiceInfo 列表
      */
     private static List<ServiceInfo> getServiceInfo(String namespace, String portType, String host, String swaggerUrl) {
         if (StringUtils.isEmpty(namespace)) {
@@ -214,9 +215,6 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
             }
             // 获取端口列表
             Integer[] ports = getPort(service, portType);
-            if (ports == null) {
-                continue;
-            }
             // 根据 Port & swaggerUrl 检查地址是否是 Swagger Api 来确定是否加入服务列表
             for (Integer port : ports) {
                 log.debug(serviceHost + ":" + port + swaggerUrl);
@@ -236,11 +234,10 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
 
     /**
      * 获得端口列表
-     * get ports
      *
-     * @param service kubernetes service info
-     * @param type    ClusterIP or NodePort
-     * @return
+     * @param service Service 对象
+     * @param type    端口类型
+     * @return 端口对象列表
      */
     private static Integer[] getPort(V1Service service, String type) {
         List<Integer> ports = new ArrayList<>();
@@ -261,9 +258,9 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
     /**
      * 从 Kubernetes 中获取 Service 列表
      *
-     * @param namespace
-     * @param portType
-     * @return
+     * @param namespace 命名空间
+     * @param portType  端口类型
+     * @return Service 列表
      */
     private static List<V1Service> getKubernetesServiceList(String namespace, String portType) {
         // 设置 Api 客户端
@@ -296,9 +293,9 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
     /**
      * 检测 Service 中是否包含 Endpoints
      *
-     * @param endpointList
-     * @param serviceName
-     * @return
+     * @param endpointList Endpoints 列表
+     * @param serviceName  Service 名称
+     * @return Service 中是否包含 Endpoints
      */
     private static boolean isContainEndpoints(V1EndpointsList endpointList, String serviceName) {
         if (endpointList.getItems() != null) {

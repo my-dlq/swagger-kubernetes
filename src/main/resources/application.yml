@@ -18,9 +18,11 @@ swagger:
   discovery:
     namespace: ${DISCOVERY_NAMESPACE:}
     interval: ${DISCOVERY_INITIAL_INTERVAL:60}
+    url: ${DISCOVERY_URL:}
+    portType: ${DISCOVERY_PORT_TYPE:ClusterIP}
   global:
     docApiPath: ${SWGGER_API_PATH:/v2/api-docs}
-    ignoreServices: ${IGNORE_SERVICES:}
+    ignoreServices: swagger-kubernetes,${IGNORE_SERVICES:}
 
 #manager
 management:
