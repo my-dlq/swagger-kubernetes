@@ -16,7 +16,7 @@ Swagger Kubernetes 是拥有在 Kubernetes 环境中服务发现功能，能够�
 
 <!-- ![](http://ww1.sinaimg.cn/large/007vhU0ely1g3qeczucrij30qe0k174p.jpg) -->
 <!-- ![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1002.jpg?x-oss-process=style/shuiyin) -->
-![](https://imgchr.com/i/dMiXYd) 
+![](https://github.com/my-dlq/swagger-kubernetes/blob/master/img.jpg) 
 
 ## 二、架构图
 
