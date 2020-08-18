@@ -16,22 +16,31 @@ import java.util.List;
 
 /**
  * Http 请求工具
- * Http Request Tool
+ *
+ * @author mydlq
  */
 @Slf4j
 public class HttpUtils {
 
     private HttpUtils() {
+
     }
 
-    // Timeout Setting
+    /**
+     * 连接超时时间
+     */
     private static final int TIMEOUT_CONNECT = 200;
+    /**
+     * 请求超时时间
+     */
     private static final int TIMEOUT_CONNECT_REQUEST = 200;
+    /**
+     * Socket 超时时间
+     */
     private static final int TIMEOUT_SOCKET = 200;
 
     /**
      * 验证 uri 是否为 Swagger Api URL
-     * Verify that URI is Swagger Api URL
      *
      * @param serviceInfos 服务信息
      */
@@ -53,10 +62,15 @@ public class HttpUtils {
                     newServiceInfos.add(serviceInfo);
                 }
             }
+        } finally {
             // 关闭 httpclient
-            httpCilent.close();
-        } catch (IOException e) {
-            log.error("Close HttpClient Excepiton", e);
+            try {
+                if (httpCilent !=null){
+                    httpCilent.close();
+                }
+            } catch (IOException e) {
+                log.error("", e);
+            }
         }
         // 将非 swagger api 移除
         serviceInfos.removeAll(newServiceInfos);
@@ -64,7 +78,6 @@ public class HttpUtils {
 
     /**
      * 执行 HTTP 请求，获取响应结果
-     * Execute HTTP requests to obtain response results.
      *
      * @param httpGet Http Get 请求
      * @return 响应结果
@@ -84,7 +97,6 @@ public class HttpUtils {
 
     /**
      * 创建 HttpGet 请求对象
-     * Create HttpGet request object.
      *
      * @param uri 请求地址
      * @return Http Get 请求对象

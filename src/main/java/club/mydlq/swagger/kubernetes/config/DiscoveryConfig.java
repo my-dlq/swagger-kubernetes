@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
+ * 服务发现配置
+ *
  * @author mydlq
  */
 @Slf4j

@@ -23,9 +23,9 @@ public class StartConnection implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Connection kubernetes
+        // 连接 Kubernetes 集群
         connectKubernetes.connection();
-        // Init service data
+        // 刷新服务列表
         kubernetesDiscovery.freshServiceList();
     }
 

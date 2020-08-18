@@ -1,23 +1,25 @@
 package club.mydlq.swagger.kubernetes.utils;
 
 import lombok.extern.slf4j.Slf4j;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * 文件操作工具
+ *
+ * @author mydlq
+ */
 @Slf4j
 public class FileUtils {
 
     private FileUtils() {
-        throw new IllegalStateException("Utility class");
     }
 
     /**
      * 读取文件
-     * read file
      *
      * @return 读取的文本内容
      */

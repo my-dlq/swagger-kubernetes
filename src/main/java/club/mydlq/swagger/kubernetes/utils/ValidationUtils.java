@@ -5,12 +5,17 @@ import com.google.gson.JsonParser;
 import org.apache.commons.lang3.StringUtils;
 import java.util.regex.Pattern;
 
+/**
+ * 内容验证工具
+ *
+ * @author mydlq
+ */
 public class ValidationUtils {
 
     private ValidationUtils() {
     }
 
-    static final String REGEX_URL = "^(?:https?://)?[\\w]{1,}(?:\\.?[\\w]{1,})+[\\w-_/?&=#%:]*$";
+    static final String REGEX_URL = "^(?:https?://)?[\\w]+(?:\\.?[\\w]+)+[\\w-_/?&=#%:]*$";
     static final String REGEX_URL_PORT = "^\\S*:[0-9]+$";
 
     public static boolean validateUrl(String str) {

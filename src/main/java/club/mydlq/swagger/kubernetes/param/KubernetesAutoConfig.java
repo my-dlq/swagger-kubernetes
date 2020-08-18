@@ -3,32 +3,43 @@ package club.mydlq.swagger.kubernetes.param;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * Kubernetes 配置参数
+ *
+ * @author mydlq
+ */
 @Data
 @ConfigurationProperties("swagger.kubernetes.connect")
 public class KubernetesAutoConfig {
 
-    /** Kubernetes connection from cluster */
-    private boolean fromCluster = true;
-
-    /** Kubernetes url */
+    /**
+     * Kubernetes ApiServer url 地址
+     */
     private String url = "";
 
-    /** Kubernetes authentication token */
+    /**
+     * Kubernetes token 串
+     */
     private String token = "";
 
-    /** Kubernetes token file path */
+    /**
+     * Kubernetes token 文件路径
+     */
     private String tokenPath = "";
 
-    /** Validate SSL certificate */
+    /**
+     * 是否验证 SSL 证书
+     */
     boolean validateSsl = false;
 
-    /** Kubernetes ssl ca file path */
+    /**
+     * Kubernetes ca 证书文件路径
+     */
     private String caPath = "";
 
-    /** Kubernetes config file path */
+    /**
+     * 连接 Kubernetes 配置文件的路径
+     */
     private String fromConfigPath = "";
-
-    /** Whether to find a file from the default configuration address ($HOME/.kube/config) */
-    private boolean fromDefault = true;
 
 }

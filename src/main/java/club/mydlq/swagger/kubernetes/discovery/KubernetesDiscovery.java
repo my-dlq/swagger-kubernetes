@@ -22,26 +22,50 @@ import org.springframework.scheduling.config.IntervalTask;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
- * Author: mydlq / 小豆丁
- * Blog:   http://www.mydlq.club
- * Github: https://github.com/my-dlq/
- * <p>
- * Describe: kubernetes Service Discovery
+ * Kubernetes 服务发现
+ *
+ * @author mydlq
  */
 @Slf4j
 public class KubernetesDiscovery implements SchedulingConfigurer {
 
-    static final String PORT_TYPE_NODEPORT = "NodePort";
+    /**
+     * NodePort 端口常量
+     */
+    public static final String PORT_TYPE_NODEPORT = "NodePort";
+    /**
+     * 路径分隔符常量
+     */
+    public static final String PATH_SEPARATOR = "/";
 
-    private DiscoveryAutoConfig discoveryAutoConfig;
-    private SwaggerResources swaggerResourcesProcessor;
-    private ZuulRouteLocator zuulRouteLocator;
-    private RefreshRoute refreshRouteService;
-    private SwaggerAutoConfig swaggerAutoConfig;
-    private ZuulProperties zuulProperties;
+    /**
+     * 服务发现配置
+     */
+    private final DiscoveryAutoConfig discoveryAutoConfig;
+    /**
+     * Swagger Resources 处理器
+     */
+    private final SwaggerResources swaggerResourcesProcessor;
+    /**
+     * Zuul 路由配置
+     */
+    private final ZuulRouteLocator zuulRouteLocator;
+    /**
+     * Zuul 路由刷新配置
+     */
+    private final RefreshRoute refreshRouteService;
+    /**
+     * Swagger 配置
+     */
+    private final SwaggerAutoConfig swaggerAutoConfig;
+    /**
+     * Zuul 参数对象
+     */
+    private final ZuulProperties zuulProperties;
 
     public KubernetesDiscovery(SwaggerResources swaggerResourcesProcessor,
                                ZuulRouteLocator zuulRouteLocator,
@@ -96,9 +120,9 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
         serviceInfos.addAll(staticServiceList);
         // 忽略用户指定的服务
         excludeService(serviceInfos, swaggerAutoConfig.getIgnoreServices());
-        // 刷新 swagger 服务列表
+        // 刷新 Swagger 服务列表
         swaggerResourcesProcessor.updateServiceInfos(serviceInfos);
-        // 刷新 zuul 服务列表
+        // 刷新 Zuul 服务列表
         zuulRouteLocator.setServiceInfos(serviceInfos);
         refreshRouteService.refreshRoute();
     }
@@ -155,11 +179,11 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
         serviceInfo.setHost(host);
         serviceInfo.setPort(Integer.parseInt(port));
         // Path验证
-        if (!route.getPath().startsWith("/")) {
-            route.setPath("/" + route.getPath());
+        if (!route.getPath().startsWith(PATH_SEPARATOR)) {
+            route.setPath(PATH_SEPARATOR + route.getPath());
         }
         // 拆分Path,设置Name
-        String[] paths = route.getPath().split("/");
+        String[] paths = route.getPath().split(PATH_SEPARATOR);
         serviceInfo.setName(paths[1]);
         // 设置SwaggerUrl
         serviceInfo.setPath(discoveryAutoConfig.getUrl());
@@ -168,6 +192,7 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
 
     /**
      * 排除设置的不需要发现的服务
+     *
      * @param serviceInfoList    服务信息列表
      * @param excludeServiceList 排除的服务名称列表
      */
@@ -189,10 +214,10 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
     /**
      * 获取 ServiceInfo 列表
      *
-     * @param namespace    命名空间
-     * @param host         主机地址
-     * @param portType     端口类型，支持ClusterIP Or NodePort
-     * @param swaggerUrl   swagger url 地址
+     * @param namespace  命名空间
+     * @param host       主机地址
+     * @param portType   端口类型，支持ClusterIP Or NodePort
+     * @param swaggerUrl swagger url 地址
      * @return ServiceInfo 列表
      */
     private static List<ServiceInfo> getServiceInfo(String namespace, String portType, String host, String swaggerUrl) {
@@ -203,13 +228,17 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
         // 从 Kubernetes 集群获取 Service 列表
         List<V1Service> serviceList = getKubernetesServiceList(namespace, portType);
         // 检测 swagger url 是否以 "/" 开始
-        if (!swaggerUrl.startsWith("/")) {
-            swaggerUrl = "/" + swaggerUrl;
+        if (!swaggerUrl.startsWith(PATH_SEPARATOR)) {
+            swaggerUrl = PATH_SEPARATOR + swaggerUrl;
         }
         // 检测接口是否符合要求
         for (V1Service service : serviceList) {
+            // 如果 Service 名称为空，就跳过
+            if(service.getMetadata() == null){
+                continue;
+            }
             // 设置 host
-            String serviceHost = "http://" + service.getMetadata().getName() + "." + service.getMetadata().getNamespace();
+            String serviceHost = "http://" + Objects.requireNonNull(service.getMetadata()).getName() + "." + service.getMetadata().getNamespace();
             if (portType.equalsIgnoreCase(PORT_TYPE_NODEPORT)) {
                 serviceHost = host;
             }
@@ -231,7 +260,6 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
         return serviceInfos;
     }
 
-
     /**
      * 获得端口列表
      *
@@ -240,11 +268,14 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
      * @return 端口对象列表
      */
     private static Integer[] getPort(V1Service service, String type) {
+        // 设置待返回的端口列表
         List<Integer> ports = new ArrayList<>();
-        if (service != null) {
-            // 获取 Port 列表
-            List<V1ServicePort> portList = service.getSpec().getPorts();
-            for (V1ServicePort port : portList) {
+        // 判断 Servie 和 Service spec 与 Ports 不为空，则将端口加入到列表中
+        if (service != null && service.getSpec() != null && service.getSpec().getPorts() != null) {
+            // 获取端口列表
+            List<V1ServicePort> servicePortList = service.getSpec().getPorts();
+            // 循环列表，进行条件（ClusterIP 和 NodePort）判断，符合条件的就添加到列表集合
+            for (V1ServicePort port : servicePortList) {
                 if (StringUtils.equalsIgnoreCase(type, PORT_TYPE_NODEPORT)) {
                     ports.add(port.getNodePort());
                 } else {
@@ -252,7 +283,7 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
                 }
             }
         }
-        return ports.toArray(new Integer[ports.size()]);
+        return ports.toArray(new Integer[0]);
     }
 
     /**
@@ -265,30 +296,39 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
     private static List<V1Service> getKubernetesServiceList(String namespace, String portType) {
         // 设置 Api 客户端
         CoreV1Api api = new CoreV1Api();
+        // 设置返回的 Kubernetes Service 集合列表
         List<V1Service> kubernetesServiceList = new ArrayList<>();
-        V1ServiceList serviceList = null;
-        V1EndpointsList endPointList = null;
-        // 获取 ServiceList & EndPointList
         try {
-            serviceList = api.listNamespacedService(namespace, null, null, null, null, null, null, null, null, null);
-            endPointList = api.listNamespacedEndpoints(namespace, null, null, null, null, null, null, null, null, null);
+            // 通过 Kubernetes API 获取 Service 与 EndPoint 列表
+            V1ServiceList serviceList = api.listNamespacedService(namespace, null, null, null, null, null, null, null, null, null);
+            V1EndpointsList endPointList = api.listNamespacedEndpoints(namespace, null, null, null, null, null, null, null, null, null);
+            // 判断列表是否获成功，如果值为空则直接返回 Service 空集合
+            if (serviceList == null || endPointList == null) {
+                return kubernetesServiceList;
+            }
+            // 检测 Service 是否包含 Endpoints（不包含则将该 Service 过滤），如果端口类型为 NodePort,则检测端口类型
+            // 循环 Service 列表，获取每个 Service 信息，加入到待返回的 Service 集合
+            for (V1Service service : serviceList.getItems()) {
+                // 判断是否存在 Metadata，如果存在则继续，否则跳过本次循环
+                if (service.getMetadata() == null || service.getSpec() == null) {
+                    continue;
+                }
+                // 获取服务名称
+                String serviceName = service.getMetadata().getName();
+                // 判断 Kubernetes Service 是否关联了 EndPoints 资源
+                boolean isContainEndpoints = isContainEndpoints(endPointList, serviceName);
+                // 判断 Kubernetes Service 类型是否为和指定的类型一致
+                boolean isMatchType = StringUtils.equalsIgnoreCase(service.getSpec().getType(), portType);
+                // 如果不包含 Endpoints 资源或
+                if (isContainEndpoints && isMatchType) {
+                    kubernetesServiceList.add(service);
+                }
+            }
         } catch (ApiException e) {
             log.error(e.getMessage());
         }
-        // 检测 Service 是否包含 Endpoints，如果端口类型为 NodePort,则检测端口类型
-        if (endPointList != null && serviceList != null) {
-            for (V1Service service : serviceList.getItems()) {
-                if (!isContainEndpoints(endPointList, service.getMetadata().getName())
-                        || StringUtils.equalsIgnoreCase(portType, PORT_TYPE_NODEPORT)
-                        && !StringUtils.equalsIgnoreCase(service.getSpec().getType(), portType)) {
-                    continue;
-                }
-                kubernetesServiceList.add(service);
-            }
-        }
         return kubernetesServiceList;
     }
-
 
     /**
      * 检测 Service 中是否包含 Endpoints
@@ -300,7 +340,19 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
     private static boolean isContainEndpoints(V1EndpointsList endpointList, String serviceName) {
         if (endpointList.getItems() != null) {
             for (V1Endpoints endpoints : endpointList.getItems()) {
-                if (StringUtils.equalsIgnoreCase(endpoints.getMetadata().getName(), serviceName)) {
+                if (endpoints.getMetadata() == null ||
+                        endpoints.getSubsets() == null ||
+                        endpoints.getSubsets().get(0) == null ||
+                        endpoints.getSubsets().get(0).getAddresses() == null) {
+                    continue;
+                }
+                // 从 Endpoints 列表中查找到对应的服务
+                boolean isMatch = StringUtils.equalsIgnoreCase(endpoints.getMetadata().getName(), serviceName);
+                // 检测该 Endpoints 是否存在关联的 Pod 地址
+                List<V1EndpointAddress> endpointAddresses = endpoints.getSubsets().get(0).getAddresses();
+                boolean hasAddress = endpointAddresses != null && !endpointAddresses.isEmpty();
+                // 如果满足上面设置的两个条件，则返回 ture
+                if (isMatch && hasAddress) {
                     return true;
                 }
             }
