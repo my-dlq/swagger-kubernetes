@@ -12,9 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Zuul 路由管理
+ * Author: mydlq / 小豆丁
+ * Blog:   http://www.mydlq.club
+ * Github: https://github.com/my-dlq/
  *
- * @author mydlq
+ * Describe: Zuul routing management
  */
 @Slf4j
 public class ZuulRouteLocator extends SimpleRouteLocator implements RefreshableRouteLocator {

@@ -1,6 +1,8 @@
 #server config
 server:
   port: 8080
+  tomcat:
+    basedir: "/"
 
 #spring config
 spring:

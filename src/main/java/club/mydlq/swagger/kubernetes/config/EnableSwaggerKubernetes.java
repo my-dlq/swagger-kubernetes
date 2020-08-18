@@ -5,8 +5,6 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * 启用 Swagger-Kubernetes 的注解
- *
  * @author mydlq
  */
 @Target({ElementType.TYPE})

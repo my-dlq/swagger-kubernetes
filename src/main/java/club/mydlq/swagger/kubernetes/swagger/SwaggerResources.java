@@ -8,18 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * SwaggerResources 配置
- *
  * @author mydlq
  */
 public class SwaggerResources implements SwaggerResourcesProvider {
 
-    /**
-     * 服务信息列表
-     */
-    List<ServiceInfo> serviceInfoList = new ArrayList<>();
-
-    private final SwaggerAutoConfig swaggerAutoConfig;
+    // serviceInfo list
+    List<ServiceInfo> serviceInfos = new ArrayList<>();
+    private SwaggerAutoConfig swaggerAutoConfig;
 
     public SwaggerResources(SwaggerAutoConfig swaggerAutoConfig) {
         this.swaggerAutoConfig = swaggerAutoConfig;
@@ -27,22 +22,23 @@ public class SwaggerResources implements SwaggerResourcesProvider {
 
     /**
      * 更新服务列表
+     * Update service list
      *
-     * @param serviceInfoList 服务信息列表
+     * @param serviceInfos
      */
-    public void updateServiceInfos(List<ServiceInfo> serviceInfoList) {
-        this.serviceInfoList = serviceInfoList;
+    public void updateServiceInfos(List<ServiceInfo> serviceInfos) {
+        this.serviceInfos = serviceInfos;
     }
 
     /**
      * 增加 SwaggerResource 对象到 swagger 列表
      *
-     * @return SwaggerResource 列表
+     * @return
      */
     @Override
     public List<SwaggerResource> get() {
         List<SwaggerResource> resources = new ArrayList<>();
-        for (ServiceInfo serviceInfo : serviceInfoList) {
+        for (ServiceInfo serviceInfo : serviceInfos) {
             resources.add(swaggerResource(serviceInfo.getName(),
                     "/" + serviceInfo.getName() + swaggerAutoConfig.getDocApiPath(),
                     swaggerAutoConfig.getSwaggerVersion()));
@@ -50,13 +46,14 @@ public class SwaggerResources implements SwaggerResourcesProvider {
         return resources;
     }
 
+
     /**
      * 创建 SwaggerResource 对象
      *
-     * @param name 设置 Swagger 名称
-     * @param location 设置 Swagger 位置
-     * @param swaggerVersion 指定 swagger 版本
-     * @return SwaggerResource 对象
+     * @param name
+     * @param location
+     * @param swaggerVersion
+     * @return
      */
     private SwaggerResource swaggerResource(String name, String location, String swaggerVersion) {
         SwaggerResource swaggerResource = new SwaggerResource();
