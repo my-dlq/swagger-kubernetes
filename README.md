@@ -150,3 +150,4 @@ IGNORE_SERVICES | - | 默认的忽略列表，例如设置为"service1,service2,
 ACTUATOR_PORT | 8080 | SpringBoot management 端口设置 
 ACTUATOR_TYPE | * | SpringBoot Actuator 暴露的参数，可以设置为 health,info,env,metrics,prometheus....
 
+
