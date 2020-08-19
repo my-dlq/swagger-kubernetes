@@ -15,8 +15,7 @@ Swagger Kubernetes 是拥有在 Kubernetes 环境中服务发现功能，能够�
 - Docker镜像： mydlqclub/swagger-kubernetes
 
 <!-- ![](http://ww1.sinaimg.cn/large/007vhU0ely1g3qeczucrij30qe0k174p.jpg) -->
-<!-- ![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1002.jpg?x-oss-process=style/shuiyin) -->
-![](https://github.com/my-dlq/swagger-kubernetes/blob/master/img.jpg) 
+![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1002.jpg?x-oss-process=style/shuiyin)
 
 ## 二、架构图
 
@@ -131,9 +130,6 @@ service/swagger-kubernetes        NodePort   10.10.204.142   <none>        8080:
 ### 4、访问 Swagger Kubernetes
 
 输入地址： http://Kuberntes集群地址:32255 访问 Swagger Kubernetes
-
-<!-- ![](http://ww1.sinaimg.cn/large/007vhU0ely1g47ly6vu4uj30v60clgm4.jpg) -->
-![](https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/swagger-kubernetes-1004.jpg?x-oss-process=style/shuiyin)
 
 ## 五、可配置环境变量参数
 
