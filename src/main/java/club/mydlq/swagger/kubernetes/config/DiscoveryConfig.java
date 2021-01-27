@@ -1,6 +1,5 @@
 package club.mydlq.swagger.kubernetes.config;
 
-import lombok.extern.slf4j.Slf4j;
 import club.mydlq.swagger.kubernetes.discovery.KubernetesConnect;
 import club.mydlq.swagger.kubernetes.discovery.KubernetesDiscovery;
 import club.mydlq.swagger.kubernetes.param.DiscoveryAutoConfig;
