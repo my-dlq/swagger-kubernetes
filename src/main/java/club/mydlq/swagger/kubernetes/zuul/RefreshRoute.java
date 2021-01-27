@@ -1,21 +1,32 @@
 package club.mydlq.swagger.kubernetes.zuul;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.RoutesRefreshedEvent;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 
-public class RefreshRoute {
+/**
+ * Refresh {@code RouteLocator} endpoint.
+ * @author mydlq
+ * @author WeiX Sun
+ */
+public class RefreshRoute implements ApplicationEventPublisherAware {
 
-    @Autowired
-    ApplicationEventPublisher publisher;
+	private ApplicationEventPublisher publisher;
 
-    @Autowired
-    RouteLocator routeLocator;
+	private RouteLocator routeLocator;
 
-    public void refreshRoute() {
-        RoutesRefreshedEvent routesRefreshedEvent = new RoutesRefreshedEvent(routeLocator);
-        publisher.publishEvent(routesRefreshedEvent);
-    }
+	public RefreshRoute(RouteLocator routeLocator) {
+		this.routeLocator = routeLocator;
+	}
+
+	@Override
+	public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
+		this.publisher = publisher;
+	}
+
+	public void refreshRoute() {
+		publisher.publishEvent(new RoutesRefreshedEvent(this.routeLocator));
+	}
 
 }
