@@ -18,7 +18,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 /**
  * @author mydlq
  */
-@Slf4j
 @EnableScheduling
 @EnableConfigurationProperties({KubernetesAutoConfig.class, DiscoveryAutoConfig.class})
 public class DiscoveryConfig {
