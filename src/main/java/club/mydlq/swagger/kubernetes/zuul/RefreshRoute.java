@@ -9,6 +9,8 @@ import org.springframework.context.ApplicationEventPublisherAware;
  * Refresh {@code RouteLocator} endpoint.
  * @author mydlq
  * @author WeiX Sun
+ * 
+ * @see org.springframework.cloud.netflix.zuul.ZuulServerAutoConfiguration.ZuulRefreshListener
  */
 public class RefreshRoute implements ApplicationEventPublisherAware {
 
