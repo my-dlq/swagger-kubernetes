@@ -44,7 +44,7 @@
     <properties>
         <java.version>1.8</java.version>
         <version.zuul>2.1.3.RELEASE</version.zuul>
-        <version.kubernetes>8.0.2</version.kubernetes>
+        <version.kubernetes>9.0.2</version.kubernetes>
         <version.knife4j>2.0.3</version.knife4j>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
