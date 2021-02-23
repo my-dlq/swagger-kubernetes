@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 /**
  * @author mydlq
  */
-@EnableSwagger2
 @EnableKnife4j
+@EnableSwagger2WebMvc
 @EnableConfigurationProperties(SwaggerAutoConfig.class)
 public class SwaggerConfig {
 

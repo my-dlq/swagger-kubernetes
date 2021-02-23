@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: swagger-kubernetes
+  namespace: mydlqcloud
+  labels:
+    app: swagger-kubernetes
+spec:
+  ports:
+    - name: tcp
+      port: 8080
+      nodePort: 32255
+      targetPort: 8080
+  type: NodePort
+  selector:
+    app: swagger-kubernetes
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swagger-kubernetes
+  namespace: mydlqcloud
+  labels:
+    app: swagger-kubernetes
+spec:
+  selector:
+    matchLabels:
+      app: swagger-kubernetes
+  template:
+    metadata:
+      labels:
+        app: swagger-kubernetes
+    spec:
+      serviceAccountName: swagger-kubernetes
+      containers:
+        - name: swagger-kubernetes
+          image: mydlqclub/swagger-kubernetes:latest
+          #国内使用 aliyun 镜像仓库
+          #image: registry.cn-beijing.aliyuncs.com/mydlq/swagger-kubernetes:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: server
+              containerPort: 8080
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 512Mi
+            requests:
+              cpu: 500m
+              memory: 512Mi

@@ -119,11 +119,17 @@ public class KubernetesConnect {
      * If within the kubernetes cluster, the kubernetes environment is utilized
      */
     private void connectFromCluster() {
+        // 判断是否为集群内的一个 pod 来判断是使用 pod 权限连接
+        if (!FileUtils.checkFolderExist(Config.SERVICEACCOUNT_ROOT)){
+            log.error("error connecting to Kubernetes cluster!");
+            return;
+        }
         ApiClient apiClient = null;
         try {
             apiClient = Config.fromCluster();
-        } catch (IOException e) {
-            log.error("read container token error", e);
+        } catch (Exception e) {
+            log.error("read container token error");
+            log.debug("error info", e);
         }
         Configuration.setDefaultApiClient(apiClient);
     }

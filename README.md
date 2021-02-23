@@ -45,6 +45,16 @@ metadata:
   name: swagger-kubernetes
   namespace: mydlqcloud
 ---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: swagger-kubernetes-role
+  namespace: mydlqcloud
+rules:
+  - apiGroups: [""]
+    resources: ["services","endpoints"]
+    verbs: ["get","list","watch"]
+---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -56,8 +66,8 @@ subjects:
     namespace: mydlqcloud
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: admin
+  kind: Role
+  name: swagger-kubernetes-role
 ```
 
 **创建 ServiceAccount**
@@ -75,14 +85,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: swagger-kubernetes
+  namespace: mydlqcloud
   labels:
     app: swagger-kubernetes
 spec:
   ports:
-  - name: tcp
-    port: 8080
-    nodePort: 32255
-    targetPort: 8080
+    - name: tcp
+      port: 8080
+      nodePort: 32255
+      targetPort: 8080
   type: NodePort
   selector:
     app: swagger-kubernetes
@@ -91,6 +102,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: swagger-kubernetes
+  namespace: mydlqcloud
   labels:
     app: swagger-kubernetes
 spec:
@@ -102,12 +114,23 @@ spec:
       labels:
         app: swagger-kubernetes
     spec:
-      serviceAccountName: swagger-kubernetes    #这里引用创建的服务账户，否则可能没有读取服务所在 Namespace 的权限
+      serviceAccountName: swagger-kubernetes
       containers:
-      - name: swagger-kubernetes
-        image: mydlqclub/swagger-kubernetes:latest
-        ports:
-        - containerPort: 8080
+        - name: swagger-kubernetes
+          image: mydlqclub/swagger-kubernetes:latest
+          #国内使用 aliyun 镜像仓库
+          #image: registry.cn-beijing.aliyuncs.com/mydlq/swagger-kubernetes:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: server
+              containerPort: 8080
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 512Mi
+            requests:
+              cpu: 500m
+              memory: 512Mi
 ```
 
 **创建 ServiceAccount**

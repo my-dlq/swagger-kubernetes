@@ -1,9 +1,16 @@
-FROM openjdk:11.0-jre-slim
-VOLUME /tmp
-COPY target/lib/ ./lib/
-ADD target/*.jar app.jar
-RUN sh -c 'touch app.jar'
-ENV JVM_OPTS="-Xss256k -Duser.timezone=Asia/Shanghai -Djava.security.egd=file:/dev/./urandom"
+FROM openjdk:8u282 as builder
+WORKDIR application
+COPY target/*.jar application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
+
+FROM openjdk:8u282-jre
+WORKDIR application
+COPY --from=builder application/dependencies/ ./
+COPY --from=builder application/snapshot-dependencies/ ./
+COPY --from=builder application/spring-boot-loader/ ./
+COPY --from=builder application/application/ ./
+ENV TZ="Asia/Shanghai"
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+ENV JVM_OPTS="-XX:MaxRAMPercentage=90.0 -Duser.timezone=Asia/Shanghai -Xss256k"
 ENV JAVA_OPTS=""
-ENV APP_OPTS=""
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS  $JVM_OPTS  -jar app.jar $APP_OPTS" ]
+ENTRYPOINT ["sh","-c","java $JVM_OPTS $JAVA_OPTS org.springframework.boot.loader.JarLauncher"]

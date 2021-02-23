@@ -13,6 +13,7 @@ spring:
 swagger:
   kubernetes:
     connect:
+      fromCluster: ${KUBERNETES_CONNECT_FROM_CLUSTER:true}
       url: ${KUBERNETES_CONNECT_URL:https://kubernetes.default.svc.cluster.local}
       token: ${KUBERNETES_CONNECT_TOKEN:}
   discovery:

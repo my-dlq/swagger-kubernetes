@@ -30,4 +30,15 @@ public class FileUtils {
         }
         return null;
     }
+
+    /**
+     * 检查文件是否存在
+     *
+     * @return 检查结果
+     */
+    public static boolean checkFolderExist(String path){
+        File file = new File(path);
+        return file.exists();
+    }
+
 }

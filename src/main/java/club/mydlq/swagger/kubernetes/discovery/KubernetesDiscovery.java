@@ -270,8 +270,8 @@ public class KubernetesDiscovery implements SchedulingConfigurer {
         V1EndpointsList endPointList = null;
         // 获取 ServiceList & EndPointList
         try {
-            serviceList = api.listNamespacedService(namespace, null, null, null, null, null, null, null, null, null);
-            endPointList = api.listNamespacedEndpoints(namespace, null, null, null, null, null, null, null, null, null);
+            serviceList = api.listNamespacedService(namespace, null, null, null, null, null, null, null, null, null,null);
+            endPointList = api.listNamespacedEndpoints(namespace, null, null, null, null, null, null, null, null, null,null);
         } catch (ApiException e) {
             log.error(e.getMessage());
         }
